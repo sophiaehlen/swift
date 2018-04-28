@@ -8,11 +8,10 @@ version = node['swift']['version']
 
 execute 'apt-get update'
 
-package %w{clang libicu-dev libpython2.7} do
-    action :install
-end
+package 'clang'
+package 'libicu-dev'
 
-swift node['swift']['version'] do
+swift version do
   action :install
-  url "https://swift.org/builds/swift-#{version}-release/ubuntu1604/swift-#{version}-RELEASE/swift-#{version}-RELEASE-ubuntu16.04.tar.gz"
+  source "https://swift.org/builds/swift-4.1-release/ubuntu1604/swift-4.1-RELEASE/swift-4.1-RELEASE-ubuntu16.04.tar.gz"
 end

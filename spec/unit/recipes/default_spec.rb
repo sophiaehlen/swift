@@ -13,7 +13,7 @@ describe 'swift::default' do
       # https://github.com/customink/fauxhai/blob/master/PLATFORMS.md
       #runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04')
       runner = ChefSpec::ServerRunner.new(step_into: ['swift']) do |node,server|
-        node.set['switch']['version'] = version
+        node.set['swift']['version'] = version
       end
       runner.converge(described_recipe)
     end
@@ -22,6 +22,29 @@ describe 'swift::default' do
 
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
+    end
+
+    it 'installs the necessary packages' do
+      expect(chef_run).to install_package('clang')
+      expect(chef_run).to install_package('libicu-dev')
+    end
+
+    it 'installs swift' do
+      expect(chef_run).to install_swift(version)
+    end
+
+    it 'pulls down remote file' do
+      expect(chef_run).to create_remote_file("/tmp/swift-4.1-RELEASE-ubuntu16.04.tar.gz")
+    end
+
+    # # TODO: actually check the stdout here...
+    # it 'verifies the keys' do
+    #   expect(chef_run).to_not raise_error
+    # end
+
+    it 'unzips swift archive' do
+      resource = chef_run.remote_file("/tmp/swift-4.1-RELEASE-ubuntu16.04.tar.gz")
+      # TODO: add an expect here to check that it notifies the add to path block
     end
   end
 end
