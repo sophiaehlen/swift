@@ -2,7 +2,7 @@
 # Cookbook:: swift
 # Recipe:: default
 #
-# Copyright:: 2018, The Authors, All Rights Reserved.
+# Copyright:: 2018, Sophia Ehlen, Apache-2.0.
 
 version = node['swift']['version']
 

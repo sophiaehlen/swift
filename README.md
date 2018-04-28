@@ -1,4 +1,3 @@
 # swift
 
-TODO: Enter the cookbook description here.
-
+Chef custom resource for installing the Swift programming language
